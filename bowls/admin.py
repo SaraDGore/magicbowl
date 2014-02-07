@@ -16,6 +16,9 @@ class RecipeAdmin(admin.ModelAdmin):
               'preparation',
               'source']
     inlines = (Recipe_IngredientInline,)
+    list_display = ('name', 'role', 'cuisine')
+    list_filter = ['role', 'cuisine']
+    search_fields = ['name', 'preparation', 'source']
 
 admin.site.register(Recipe, RecipeAdmin)
 admin.site.register(Ingredient)
