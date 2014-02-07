@@ -2,6 +2,7 @@ from django.contrib import admin
 
 from bowls.models import Recipe
 from bowls.models import Ingredient
+from bowls.models import Recipe_Ingredient
 
 class Recipe_IngredientInline(admin.TabularInline):
     model = Recipe_Ingredient
