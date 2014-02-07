@@ -10,7 +10,7 @@ class Recipe_IngredientInline(admin.TabularInline):
     
     
 class RecipeAdmin(admin.ModelAdmin):
-    fields = ['name', 'ingredients',
+    fields = ['name', 
               'cuisine',
               'role',
               'preparation',
