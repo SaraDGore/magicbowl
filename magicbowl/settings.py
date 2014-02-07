@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u8eiir5=qdh3fiiyh-65m)%rh#!mzbj*kq2)+&w-8!ohulx_@r'
+SECRET_KEY = '_g$g2+$*sr*@8_0e8=j2y6f^@67(8z)@2(xra)7&1a*=xxp(3a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,8 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap3',
-    'bowls',
+    # 'bowl',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -80,8 +79,6 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
-
-STATIC_URL = '/static/'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
