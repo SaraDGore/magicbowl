@@ -5,7 +5,7 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=200, unique=True)
     
     def __unicode__(self):
-        return name
+        return self.name
 
 
 class Recipe(models.Model):
@@ -30,7 +30,7 @@ class Recipe(models.Model):
     source = models.CharField(max_length=300, blank=True)
     
     def __unicode__(self):
-        return name
+        return self.name
     
     
 class Recipe_Ingredient(models.Model):
@@ -44,4 +44,4 @@ class Recipe_Ingredient(models.Model):
         ordering = ['sequence']
         
     def __unicode(self):
-        return ingredient + ' in ' + recipe
+        return self.ingredient + ' in ' + self.recipe
