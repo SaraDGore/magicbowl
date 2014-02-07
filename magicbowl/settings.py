@@ -36,7 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'bowl',
+    'south',
+    'bowls',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -58,10 +59,15 @@ WSGI_APPLICATION = 'magicbowl.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+        'NAME': 'your_db_name',
+        'HOST': 'your_host',
+        'PORT': '5432',                    
+        'USER': 'your_db_user_name',
+        'PASSWORD': 'your_password',                             
     }
 }
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
@@ -82,7 +88,8 @@ USE_TZ = True
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
-DATABASES['default'] =  dj_database_url.config()
+DATABASES['default'] =  dj_database_url.config(default="south.db.postgresql_psycopg2")
+SOUTH_DATABASE_ADAPTERS = { 'default': "south.db.postgresql_psycopg2" }
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -99,3 +106,4 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+

@@ -1,30 +1,47 @@
 from django.db import models
 
-ROLE_CHOICES = (
-    ('SAUCE', 'sauce'),
-    ('BASE', 'base'),
-    ('VEGGIE', 'vegetable'),
-    ('PROTEIN', 'protein'),)
-    
-CUISINES = (
-    ('LATIN', 'Latin'),
-    ('SOUTHERN', 'Southern'),
-    ('AMERICAN', 'American'),
-    ('ASIAN', 'East Asian'),
-    ('INDIAN', 'Indian'))
     
 class Ingredient(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=200, unique=True)
+    
+    def __unicode__(self):
+        return name
+
 
 class Recipe(models.Model):
-    name = models.CharField(max_length=200)
-    ingredients = ManyToManyField(Ingredient, through='Recipe_Ingredient')
-    cuisine = models.CharField(max_length=10, choices=CUISINES)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES)
+    ROLE_CHOICES = (
+        ('SAUCE', 'sauce'),
+        ('BASE', 'base'),
+        ('VEGGIE', 'vegetable'),
+        ('PROTEIN', 'protein'),)
+        
+    CUISINES = (
+        ('LATIN', 'Latin'),
+        ('SOUTHERN', 'Southern'),
+        ('AMERICAN', 'American'),
+        ('ASIAN', 'East Asian'),
+        ('INDIAN', 'Indian'))
+        
+    name = models.CharField(max_length=200, unique=True)
+    ingredients = models.ManyToManyField(Ingredient, through='Recipe_Ingredient')
+    cuisine = models.CharField(max_length=10, choices=CUISINES, default='AMERICAN')
+    role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='VEGGIE')
     preparation = models.TextField(max_length=1000)
-    source = models.CharField(max_length=300)
+    source = models.CharField(max_length=300, blank=True)
+    
+    def __unicode__(self):
+        return name
+    
     
 class Recipe_Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe)
     ingredient = models.ForeignKey(Ingredient)
-    amount = models.CharField(max_length=10)
+    amount = models.CharField(max_length=10, blank=True)
+    sequence = models.IntegerField(default=1, 
+                                    help_text="The order in which the ingredients should appear in the recipe.")
+    
+    class Meta:
+        ordering = ['sequence']
+        
+    def __unicode(self):
+        return ingredient + ' in ' + recipe
