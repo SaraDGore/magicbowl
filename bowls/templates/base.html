@@ -96,6 +96,12 @@
             <div><h2><label for="use">What I have on hand:</label></h2></div>
         </div>
         <div class="row">
+            {% for ingredient in ingredients %}
+            <div class="col-xs-4"><div class="checkbox">
+            <label><input type="checkbox" name="use" value="{{ ingredient.name }} ">{{ ingredient.name }}</label></div></div>
+            {% endfor %}
+        </div>
+        <div class="row">
           <div class="col-xs-4"><div class="checkbox">
             <label><input type="checkbox" name="use" value="salad">Salad greens</label></div></div>
           <div class="col-xs-4"><div class="checkbox">

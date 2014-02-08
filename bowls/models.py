@@ -3,6 +3,7 @@ from django.db import models
     
 class Ingredient(models.Model):
     name = models.CharField(max_length=200, unique=True)
+    listable = models.BooleanField(default=False)
     
     def __unicode__(self):
         return self.name
@@ -45,7 +46,6 @@ class Recipe_Ingredient(models.Model):
     amount = models.CharField(max_length=25, blank=True)
     sequence = models.IntegerField(default=1, 
                                     help_text="The order in which the ingredients should appear in the recipe.")
-    listable = models.BooleanField(default=False)
     
     class Meta:
         ordering = ['sequence']
