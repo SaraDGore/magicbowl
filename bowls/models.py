@@ -42,7 +42,7 @@ class Recipe(models.Model):
 class Recipe_Ingredient(models.Model):
     recipe = models.ForeignKey(Recipe)
     ingredient = models.ForeignKey(Ingredient)
-    amount = models.CharField(max_length=20, blank=True)
+    amount = models.CharField(max_length=25, blank=True)
     sequence = models.IntegerField(default=1, 
                                     help_text="The order in which the ingredients should appear in the recipe.")
     listable = models.BooleanField(default=False)
