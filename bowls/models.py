@@ -8,6 +8,19 @@ class Ingredient(models.Model):
         return self.name
 
 
+class Cuisine(models.Model):
+    CUISINES = (
+        ('LATIN', 'Latin'),
+        ('SOUTHERN', 'Southern'),
+        ('AMERICAN', 'American'),
+        ('ASIAN', 'East Asian'),
+        ('INDIAN', 'Indian'))
+    name = models.CharField(max_length=10, choices=CUISINES)
+    
+    def __unicode__(self):
+        return self.name
+
+
 class Recipe(models.Model):
     ROLE_CHOICES = (
         ('SAUCE', 'sauce'),
@@ -15,16 +28,9 @@ class Recipe(models.Model):
         ('VEGGIE', 'vegetable'),
         ('PROTEIN', 'protein'),)
         
-    CUISINES = (
-        ('LATIN', 'Latin'),
-        ('SOUTHERN', 'Southern'),
-        ('AMERICAN', 'American'),
-        ('ASIAN', 'East Asian'),
-        ('INDIAN', 'Indian'))
-        
     name = models.CharField(max_length=200, unique=True)
     ingredients = models.ManyToManyField(Ingredient, through='Recipe_Ingredient')
-    cuisine = models.CharField(max_length=10, choices=CUISINES, default='AMERICAN')
+    cuisines = models.ManyToManyField(Cuisine)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, default='VEGGIE')
     preparation = models.TextField(max_length=1000)
     source = models.CharField(max_length=300, blank=True)
