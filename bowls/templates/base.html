@@ -114,15 +114,15 @@
             </div><!--row -->
             </div><!-- ingredient-list -->
         </div><!--form group-->
-        <div class="form-group hidden" id="dontuse-form">
+        <div class="form-group hidden" id="cuisine-form">
         <div class="row">
-            <div><h2 id="dontuse-label">Please do not include:</h2></div>
+            <div><h2>I'm in the mood for:</h2></div>
         </div>
-            <div class="row">
-            {% for ingredient in ingredients %}
+        <div class="row">
+            {% for cuisine in cuisines %}
                 <div class="col-xs-4">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="use" value="{{ ingredient.name }} ">{{ ingredient.name }}</label>
+                        <label><input type="checkbox" name="cuisine" value="{{ cuisine.name }} ">{{ cuisine.get_name_display }}</label>
                     </div>
                 </div>
             {% if not forloop.last %}
@@ -132,29 +132,7 @@
               {% endif %}
             {% endif %}
             {% endfor %}
-            </div><!--row -->        
-        </div><!--formgroup-->
-        <div class="form-group hidden" id="cuisine-form">
-        <div class="row">
-            <div><h2>I'm in the mood for:</h2></div>
-        </div>
-        
-        <div class="row">
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="SOUTHERN">Southern</label></div></div>
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="ASIAN">East Asian</label></div></div>
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="INDIAN">Indian</label></div></div>
-          </div>
-          <div class="row">
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="LATIN">Latin</label></div></div>
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="AMERICAN">American</label></div></div>
-          <div class="col-xs-4"><div class="checkbox">
-            <label><input type="checkbox" name="cuisine" value="FUSION">Fusion</label></div></div>
-        </div>
+        </div><!--row -->
         </div><!--formclass-->
         <div class="row">
           <p class="text-center hidden" id="submitbutton" data-toggle="modal" data-target="#recipe"><button type="submit" class="btn btn-primary btn-lg">Pack me a bowl!</button></p> 

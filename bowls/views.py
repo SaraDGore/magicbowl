@@ -9,5 +9,10 @@ from bowls.models import Recipe
 def main(request):
     
     ingredients = Ingredient.objects.filter(listable=True)
+    cuisines = Cuisine.objects.all()
     
-    return render_to_response('base.html', {"ingredients": ingredients})
+    data = {"ingredients": ingredients,
+            "cuisines": cuisines}
+            
+    
+    return render_to_response('base.html', data)
