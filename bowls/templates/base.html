@@ -11,7 +11,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="{% static 'bowls/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="{% static 'bowls/css/bootstrap.css' %}">
         <style>
             body {
                 padding-top: 50px;
@@ -29,6 +29,52 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
+   <div class="modal fade bs-modal-lg" id="recipe" tabindex="-1" role="dialog" aria-labelledby="{{ recipe.name }}" aria-hidden="true">
+  <div class="modal-dialog bs-modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Rice with Black Beans, Sweet Potatoes, and Pico de Gallo</h4>
+      </div>
+      <div class="modal-body">
+        <h5>Rice</h5>
+        <ul>
+            <li>1 cup white rice</li>
+            <li>2 tsp salt</li>
+        </ul>
+        <p>Cook the rice.</p>
+        <h5>Black beans</h5>
+        <ul>
+            <li>1 cup black beans</li>
+            <li>2 tsp salt</li>
+        </ul>
+        <p>Cook the beans.</p>
+        <h5>Sweet potatoes</h5>
+        <ul>
+            <li>1 cup white rice</li>
+            <li>2 tsp salt</li>
+        </ul>
+        <p>Cook the sweet potatoes.</p>
+        <h5>Pico de Gallo</h5>
+        <ul>
+            <li>1 1/2 c chopped tomato</li>
+            <li>1/2 cup white onion, diced</li>
+            <li>1 tsp garlic, minced</li>
+            <li>1 tsp jalapeno, seeded and diced</li>
+            <li>1/2 c chopped cilantro (or parsley)</li>
+            <li>2 tbsp lime juice</li>
+        </ul>
+        <p>Combine tomatoes, onion, garlic, and jalapenos to taste. Add cilantro (or parsley if using). Squeeze in lime juice. Season with salt and pepper. Tastes better if you let the flavors mingle for a while before serving.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Print</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+        
+        
 <div class="jumbotron">
       <div class="container">
         <h1 class="text-center">Magic Bowl</h1>
@@ -42,7 +88,7 @@
         <div class="row">
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="use">Clearing the Pantry</h2></div>
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="dontuse">Goin' Shopping<h2></div>
-          <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="random">Surprise Me!<h2></div>
+          <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="random" data-toggle="modal" data-target="#recipe">Surprise Me!<h2></div>
         </div>
         <div class="form-group hidden" id="use-form">
         <div class="row">
@@ -205,7 +251,7 @@
         </div>
         </div><!--formclass-->
         <div class="row">
-          <p class="text-center hidden" id="submitbutton"><button type="submit" class="btn btn-primary btn-lg">Pack me a bowl!</button></p> 
+          <p class="text-center hidden" id="submitbutton" data-toggle="modal" data-target="#recipe"><button type="submit" class="btn btn-primary btn-lg">Pack me a bowl!</button></p> 
         </div>
         </form>
       <hr>
