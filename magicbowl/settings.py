@@ -60,11 +60,11 @@ WSGI_APPLICATION = 'magicbowl.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'your_db_name',
-        'HOST': 'your_host',
+        'NAME': 'bowls',
+        'HOST': 'localhost',
         'PORT': '5432',                    
-        'USER': 'your_db_user_name',
-        'PASSWORD': 'your_password',                             
+        'USER': '',
+        'PASSWORD': '',                             
     }
 }
 
