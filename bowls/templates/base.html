@@ -91,10 +91,12 @@
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="dontuse">Goin' Shopping<h2></div>
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="random" data-toggle="modal" data-target="#recipe">Surprise Me!<h2></div>
         </div>
-        <div class="form-group hidden" id="use-form">
+        <div class="form-group">
             <div class="row">
-                <div><h2><label for="use">What I have on hand:</label></h2></div>
+                <div id="use-label" class="hidden"><h2><label for="use">What I have on hand:</label></h2></div>
+                <div id="dontuse-label" class="hidden"><h2><label for="dontuse">Please do not include:</label></h2></div>
             </div>
+            <div id="ingredient-list" class="hidden">
             <div class="row">
             {% for ingredient in ingredients %}
                 <div class="col-xs-4">
@@ -110,10 +112,11 @@
             {% endif %}
             {% endfor %}
             </div><!--row -->
+            </div><!-- ingredient-list -->
         </div><!--form group-->
         <div class="form-group hidden" id="dontuse-form">
         <div class="row">
-            <div><h2>Please do not include:</h2></div>
+            <div><h2 id="dontuse-label">Please do not include:</h2></div>
         </div>
             <div class="row">
             {% for ingredient in ingredients %}
