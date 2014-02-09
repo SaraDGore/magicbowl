@@ -37,8 +37,7 @@
         <h4 class="modal-title">
             {% comment %}move this processing to view{% endcomment %}
             {% for recipe in bowl %}
-                  {{ recipe.name }}
-                  {% if forloop.counter == 3 %}, and
+                  {{ recipe.name }}{% if forloop.counter == 3 %}, and
                   {% elif forloop.counter == 1 or forloop.counter == 2 %},
                   {% endif %}
             {% endfor %}
