@@ -8,7 +8,7 @@ from bowls.models import Recipe
 
 def main(request):
     
-    ingredients = Ingredient.objects.filter(listable=True)
+    ingredients = Ingredient.objects.filter(listable=True).order_by('name')
     cuisines = Cuisine.objects.all()
     
     # TODO: make buttons initiate a POST. 
