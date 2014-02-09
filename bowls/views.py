@@ -12,10 +12,10 @@ def main(request):
     cuisines = Cuisine.objects.all()
     
     # starting hardcoding in my bowl choice for now while i work on template
-    sauce = Recipe.objects.filter(role='SAUCE')[:1] 
-    base = Recipe.objects.filter(role='BASE')[:1]
-    protein = Recipe.objects.filter(role='PROTEIN')[:1]  
-    veggie = Recipe.objects.filter(role='VEGGIE')[:1] 
+    sauce = Recipe.objects.filter(role='SAUCE').orderby('?')[:1] 
+    base = Recipe.objects.filter(role='BASE').orderby('?')[:1]
+    protein = Recipe.objects.filter(role='PROTEIN').orderby('?')[:1]  
+    veggie = Recipe.objects.filter(role='VEGGIE').orderby('?')[:1] 
     bowl = [sauce[0], base[0], protein[0], veggie[0]]
     
 
