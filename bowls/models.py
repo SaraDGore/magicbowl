@@ -16,7 +16,8 @@ class Cuisine(models.Model):
         ('AMERICAN', 'American'),
         ('ASIAN', 'East Asian'),
         ('INDIAN', 'Indian'),
-        ('MIDEAST', 'Middle Eastern'))
+        ('MIDEAST', 'Middle Eastern'),
+        ('ANY', 'Anything!'))
     name = models.CharField(max_length=10, choices=CUISINES)
     
     def __unicode__(self):

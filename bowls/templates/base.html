@@ -89,7 +89,7 @@
         <div class="row">
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="use">Clearing the Pantry</h2></div>
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="dontuse">Goin' Shopping<h2></div>
-          <div class="col-md-4 text-center"><input type="submit" value="Surprise Me!" class="btn btn-primary btn-lg" id="random"></div>
+          <div class="col-md-4 text-center"><input type="submit" name="surprise" value="Surprise Me!" class="btn btn-primary btn-lg" id="random"></div>
         </div>
         <div class="form-group">
             <div class="row">
@@ -121,8 +121,8 @@
         <div class="row">
             {% for cuisine in cuisines %}
                 <div class="col-xs-4">
-                    <div class="checkbox">
-                        <label><input type="checkbox" name="cuisine" value="{{ cuisine.name }}">{{ cuisine.get_name_display }}</label>
+                    <div class="radio">
+                        <label><input type="radio" name="cuisine" id="dont-{{ cuisine.name }}" value="{{ cuisine.name }}">{{ cuisine.get_name_display }}</label>
                     </div>
                 </div>
             {% if not forloop.last %}
