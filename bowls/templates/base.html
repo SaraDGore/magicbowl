@@ -53,6 +53,9 @@
                 {% endfor %}
             </ul>
             <p>{{ recipe.preparation }}</p>
+            {% if recipe.source %}
+                <p class="small">Source: {{ recipe.source }}</p>
+            {% endif %}
         {% endfor %}
       </div>
       <div class="modal-footer">
