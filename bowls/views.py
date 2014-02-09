@@ -13,16 +13,33 @@ def main(request):
     
     data = {"ingredients": ingredients,
             "cuisines": cuisines}
-
-    if request.POST:
     
-        # random selection   
-        base = Recipe.objects.filter(role='BASE').order_by('?')[:1]
-        protein = Recipe.objects.filter(role='PROTEIN').order_by('?')[:1]  
-        veggie = Recipe.objects.filter(role='VEGGIE').order_by('?')[:1] 
-        sauce = Recipe.objects.filter(role='SAUCE').order_by('?')[:1] 
-        bowl = [base[0], protein[0], veggie[0], sauce[0]]
+    if request.POST:
+        #TODO: improve error handling
+        #Maybe make custom methods so these queries aren't so long
         
-        data['bowl'] = bowl
+        if 'cuisine' in request.POST:
+            try:
+                base = Recipe.objects.filter(role='BASE').filter(cuisines__name__in=request.POST.getlist('cuisine')).order_by('?')[0]
+                protein = Recipe.objects.filter(role='PROTEIN').filter(cuisines__name__in=request.POST.getlist('cuisine')).order_by('?')[0]  
+                veggie = Recipe.objects.filter(role='VEGGIE').filter(cuisines__name__in=request.POST.getlist('cuisine')).order_by('?')[0] 
+                sauce = Recipe.objects.filter(role='SAUCE').filter(cuisines__name__in=request.POST.getlist('cuisine')).order_by('?')[0] 
+                bowl = [base, protein, veggie, sauce]
+            except:
+                data['no_bowl'] = True
+                data['bowl'] = True
+
+        else:
+            # random selection   
+            base = Recipe.objects.filter(role='BASE').order_by('?')[0]
+            protein = Recipe.objects.filter(role='PROTEIN').order_by('?')[0]  
+            veggie = Recipe.objects.filter(role='VEGGIE').order_by('?')[0] 
+            sauce = Recipe.objects.filter(role='SAUCE').order_by('?')[0] 
+            bowl = [base, protein, veggie, sauce]
+        
+        try:
+            data['bowl'] = bowl
+        except:
+            pass
        
     return render(request, 'base.html', data)
