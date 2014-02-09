@@ -36,26 +36,34 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">
             {% comment %}move this processing to view{% endcomment %}
-            {% for recipe in bowl %}
-                  {{ recipe.name }}{% if forloop.counter == 3 %}, and
-                  {% elif forloop.counter == 1 or forloop.counter == 2 %},
-                  {% endif %}
-            {% endfor %}
+            {% if bowl %}
+                {% for recipe in bowl %}
+                      {{ recipe.name }}{% if forloop.counter == 3 %}, and
+                      {% elif forloop.counter == 1 or forloop.counter == 2 %},
+                      {% endif %}
+                {% endfor %}
+            {% else %}
+                Nothing here!
+            {% endif %}
         </h4>
       </div>
       <div class="modal-body">
-        {% for recipe in bowl %}
-            <h5>{{ recipe.name }}</h5>
-            <ul>
-                {% for ingredient in recipe.recipe_ingredient_set.all %}
-                    <li>{{ ingredient }}</li>
-                {% endfor %}
-            </ul>
-            <p>{{ recipe.preparation }}</p>
-            {% if recipe.source %}
-                <p class="small">Source: {{ recipe.source }}</p>
-            {% endif %}
-        {% endfor %}
+        {% if bowl %}
+            {% for recipe in bowl %}
+                <h5>{{ recipe.name }}</h5>
+                <ul>
+                    {% for ingredient in recipe.recipe_ingredient_set.all %}
+                        <li>{{ ingredient }}</li>
+                    {% endfor %}
+                </ul>
+                <p>{{ recipe.preparation }}</p>
+                {% if recipe.source %}
+                    <p class="small">Source: {{ recipe.source }}</p>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>No recipes could be found with these criteria. If you want a random bowl, click "Surprise Me!".</p>
+        {% endif %}
       </div>
       <div class="modal-footer">
         <p class="small">Printable version coming soon.</p>
@@ -65,7 +73,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
-        
+       
         
 <div class="jumbotron">
       <div class="container">
@@ -76,11 +84,12 @@
     </div>
 
     <div class="container">
-        <form role="form">
+        <form role="form" action="/" method="post">
+         {% csrf_token %} 
         <div class="row">
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="use">Clearing the Pantry</h2></div>
           <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="dontuse">Goin' Shopping<h2></div>
-          <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="random" data-toggle="modal" data-target="#recipe">Surprise Me!<h2></div>
+          <div class="col-md-4 text-center"><input type="submit" value="Surprise Me!" class="btn btn-primary btn-lg" id="random"></div>
         </div>
         <div class="form-group">
             <div class="row">
@@ -126,7 +135,8 @@
         </div><!--row -->
         </div><!--formclass-->
         <div class="row">
-          <p class="text-center hidden" id="submitbutton" data-toggle="modal" data-target="#recipe"><button type="submit" class="btn btn-primary btn-lg">Pack me a bowl!</button></p> 
+         <!--data-toggle="modal" data-target="#recipe"-->
+            <p class="text-center hidden" id="submitbutton"><input type="submit" class="btn btn-primary btn-lg" value="Pack me a bowl!"></p>
         </div>
         </form>
       <hr>
@@ -142,13 +152,21 @@
         <script src="{% static 'bowls/js/vendor/bootstrap.min.js' %}"></script>
 
         <script src="{% static 'bowls/js/main.js' %}"></script>
-{% comment %}
+            
+        {% if bowl %}
+        <script>   
+            $('#recipe').modal('toggle');
+        </script>
+        {% endif %} 
+               
         <script>
+    
             var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
             (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
             g.src='//www.google-analytics.com/ga.js';
             s.parentNode.insertBefore(g,s)}(document,'script'));
         </script>
-{% endcomment %}
+        
+
     </body>
 </html>
