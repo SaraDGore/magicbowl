@@ -36,21 +36,19 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title">
             {% comment %}move this processing to view{% endcomment %}
-            {% if no_bowl %}
-                Nothing here!
-            {% else %}
+            {% if bowl %}
                 {% for recipe in bowl %}
                       {{ recipe.name }}{% if forloop.counter == 3 %}, and
                       {% elif forloop.counter == 1 or forloop.counter == 2 %},
                       {% endif %}
                 {% endfor %}
+            {% else %}
+                Nothing here!
             {% endif %}
         </h4>
       </div>
       <div class="modal-body">
-        {% if no_bowl %}
-            <p>No recipes could be found with these criteria. If you want a random bowl, click "Surprise Me!".</p>
-         {% else %}
+        {% if bowl %}
             {% for recipe in bowl %}
                 <h5>{{ recipe.name }}</h5>
                 <ul>
@@ -63,6 +61,8 @@
                     <p class="small">Source: {{ recipe.source }}</p>
                 {% endif %}
             {% endfor %}
+        {% else %}
+            <p>No recipes could be found with these criteria. If you want a random bowl, click "Surprise Me!".</p>
         {% endif %}
       </div>
       <div class="modal-footer">
@@ -153,7 +153,7 @@
 
         <script src="{% static 'bowls/js/main.js' %}"></script>
             
-        {% if bowl %}
+        {% if submitted %}
         <script>   
             $('#recipe').modal('toggle');
         </script>

@@ -11,14 +11,14 @@ def main(request):
     ingredients = Ingredient.objects.filter(listable=True).order_by('name')
     cuisines = Cuisine.objects.all()
     
-    no_bowl = False
-    
     data = {"ingredients": ingredients,
             "cuisines": cuisines}
 
     if request.POST:
         #TODO: improve error handling
         #Maybe make custom methods so these queries aren't so long
+        data['submitted'] = True
+        no_bowl = False
         
         if 'surprise' in request.POST:
             #I could tie this into the logic below but this saves a bit of processing I think
@@ -61,8 +61,6 @@ def main(request):
         try:
             data['bowl'] = [base[0], protein[0], veggie[0], sauce[0]]
         except: 
-            data['no_bowl'] = True
-            data['bowl'] = True # this is here because right now the js is keying off of bowl existing
-    
-       
+            pass
+            
     return render(request, 'base.html', data)
