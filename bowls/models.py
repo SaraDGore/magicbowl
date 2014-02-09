@@ -50,5 +50,6 @@ class Recipe_Ingredient(models.Model):
     class Meta:
         ordering = ['sequence']
         
-    def __unicode(self):
-        return self.ingredient + ' in ' + self.recipe
+    def __unicode__(self):
+        i = self.ingredient.name
+        return self.amount + ' ' + i

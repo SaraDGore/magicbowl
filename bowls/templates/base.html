@@ -34,37 +34,26 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title">Rice with Black Beans, Sweet Potatoes, and Pico de Gallo</h4>
+        <h4 class="modal-title">
+            {% comment %}move this processing to view{% endcomment %}
+            {% for recipe in bowl %}
+                  {{ recipe.name }}
+                  {% if forloop.counter == 3 %}, and
+                  {% elif forloop.counter == 1 or forloop.counter == 2 %},
+                  {% endif %}
+            {% endfor %}
+        </h4>
       </div>
       <div class="modal-body">
-        <h5>Rice</h5>
-        <ul>
-            <li>1 cup white rice</li>
-            <li>2 tsp salt</li>
-        </ul>
-        <p>Cook the rice.</p>
-        <h5>Black beans</h5>
-        <ul>
-            <li>1 cup black beans</li>
-            <li>2 tsp salt</li>
-        </ul>
-        <p>Cook the beans.</p>
-        <h5>Sweet potatoes</h5>
-        <ul>
-            <li>1 cup white rice</li>
-            <li>2 tsp salt</li>
-        </ul>
-        <p>Cook the sweet potatoes.</p>
-        <h5>Pico de Gallo</h5>
-        <ul>
-            <li>1 1/2 c chopped tomato</li>
-            <li>1/2 cup white onion, diced</li>
-            <li>1 tsp garlic, minced</li>
-            <li>1 tsp jalapeno, seeded and diced</li>
-            <li>1/2 c chopped cilantro (or parsley)</li>
-            <li>2 tbsp lime juice</li>
-        </ul>
-        <p>Combine tomatoes, onion, garlic, and jalapenos to taste. Add cilantro (or parsley if using). Squeeze in lime juice. Season with salt and pepper. Tastes better if you let the flavors mingle for a while before serving.</p>
+        {% for recipe in bowl %}
+            <h5>{{ recipe.name }}</h5>
+            <ul>
+                {% for ingredient in recipe.recipe_ingredient_set.all %}
+                    <li>{{ ingredient }}</li>
+                {% endfor %}
+            </ul>
+            <p>{{ recipe.preparation }}</p>
+        {% endfor %}
       </div>
       <div class="modal-footer">
         <p class="small">Printable version coming soon.</p>
