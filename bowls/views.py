@@ -11,6 +11,8 @@ def main(request):
     ingredients = Ingredient.objects.filter(listable=True)
     cuisines = Cuisine.objects.all()
     
+    # TODO: make buttons initiate a POST. 
+    
     # random selection   
     base = Recipe.objects.filter(role='BASE').order_by('?')[:1]
     protein = Recipe.objects.filter(role='PROTEIN').order_by('?')[:1]  
