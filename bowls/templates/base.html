@@ -101,7 +101,7 @@
             {% for ingredient in ingredients %}
                 <div class="col-xs-4">
                     <div class="checkbox">
-                        <label><input type="checkbox" name="use" value="{{ ingredient.name }} ">{{ ingredient.name }}</label>
+                        <label><input type="checkbox" name="use" value="{{ ingredient.name }}">{{ ingredient.name }}</label>
                     </div>
                 </div>
             {% if not forloop.last %}
