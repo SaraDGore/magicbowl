@@ -31,11 +31,11 @@ def main(request):
             return render(request, 'base.html', data)
 
         try: 
-            if request.POST['cuisine'] == 'ANY' or 'cuisine' not in request.POST:
+            if 'cuisine' not in request.POST or request.POST['cuisine'] == 'ANY': 
                 base = Recipe.objects.filter(role='BASE').order_by('?')
                 protein = Recipe.objects.filter(role='PROTEIN').order_by('?')  
                 veggie = Recipe.objects.filter(role='VEGGIE').order_by('?')
-                sauce = Recipe.objects.filter(role='SAUCE').order_by('?') 
+                sauce = Recipe.objects.filter(role='SAUCE').order_by('?')
             else: 
                 c_list = request.POST.getlist('cuisine')
                 base = Recipe.objects.filter(role='BASE').filter(cuisines__name__in=c_list).order_by('?')
