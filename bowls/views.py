@@ -21,53 +21,43 @@ def main(request):
         data['submitted'] = True
         no_bowl = False
         
-        if 'surprise' in request.POST:
-            #I could tie this into the logic below but this saves a bit of processing I think
-            base = Recipe.objects.filter(role='BASE').order_by('?')[0]
-            protein = Recipe.objects.filter(role='PROTEIN').order_by('?')[0]  
-            veggie = Recipe.objects.filter(role='VEGGIE').order_by('?')[0]
-            sauce = Recipe.objects.filter(role='SAUCE').order_by('?')[0] 
-            data['bowl'] = [base, protein, veggie, sauce]
-            return render(request, 'base.html', data)
+        base = Recipe.objects.filter(role='BASE')
+        protein = Recipe.objects.filter(role='PROTEIN')
+        veggie = Recipe.objects.filter(role='VEGGIE')
+        sauce = Recipe.objects.filter(role='SAUCE')
 
-        try: 
-            if 'cuisine' not in request.POST or request.POST['cuisine'] == 'ANY': 
-                base = Recipe.objects.filter(role='BASE').order_by('?')
-                protein = Recipe.objects.filter(role='PROTEIN').order_by('?')  
-                veggie = Recipe.objects.filter(role='VEGGIE').order_by('?')
-                sauce = Recipe.objects.filter(role='SAUCE').order_by('?')
-            else: 
+        if 'cuisine' in request.POST and request.POST['cuisine'] != 'ANY': 
+            try: 
                 c_list = request.POST.getlist('cuisine')
-                base = Recipe.objects.filter(role='BASE').filter(cuisines__name__in=c_list).order_by('?')
-                protein = Recipe.objects.filter(role='PROTEIN').filter(cuisines__name__in=c_list).order_by('?')  
-                veggie = Recipe.objects.filter(role='VEGGIE').filter(cuisines__name__in=c_list).order_by('?') 
-                sauce = Recipe.objects.filter(role='SAUCE').filter(cuisines__name__in=c_list).order_by('?') 
-        except:
-            no_bowl = True
+                base = base.filter(cuisines__name__in=c_list)
+                protein = protein.filter(cuisines__name__in=c_list)
+                veggie = veggie.filter(cuisines__name__in=c_list)
+                sauce = sauce.filter(cuisines__name__in=c_list)
+            except:
+                no_bowl = True
+        
+        if not no_bowl and 'dontuse' in request.POST:
+            try:
+                i_list = request.POST.getlist('dontuse')
+                base = base.exclude(ingredients__name__in=i_list)
+                protein = protein.exclude(ingredients__name__in=i_list)
+                veggie = veggie.exclude(ingredients__name__in=i_list)
+                sauce = sauce.exclude(ingredients__name__in=i_list)
+            except:
+                no_bowl = True
+
+        if not no_bowl and 'use' in request.POST:
+            i_list = request.POST.getlist('use')
+            base = base.filter(ingredients__name__in=i_list) or base
+            protein = protein.filter(ingredients__name__in=i_list) or protein
+            veggie = veggie.filter(ingredients__name__in=i_list) or veggie
+            sauce = sauce.filter(ingredients__name__in=i_list) or sauce
         
         if not no_bowl:
-            if 'dontuse' in request.POST:
-                try:
-                    i_list = request.POST.getlist('dontuse')
-                    base = base.exclude(ingredients__name__in=i_list).order_by('?')
-                    protein = protein.exclude(ingredients__name__in=i_list).order_by('?')
-                    veggie = veggie.exclude(ingredients__name__in=i_list).order_by('?')
-                    sauce = sauce.exclude(ingredients__name__in=i_list).order_by('?')
-                except:
-                    no_bowl = True
-        
-        if not no_bowl:
-            if 'use' in request.POST:
-                i_list = request.POST.getlist('use')
-                base = base.filter(Q(ingredients__name__in=i_list)) or base
-                protein = protein.filter(Q(ingredients__name__in=i_list)) or protein
-                veggie = veggie.filter(Q(ingredients__name__in=i_list)) or veggie
-                sauce = sauce.filter(Q(ingredients__name__in=i_list)) or sauce
-        
-        try:
+            base = base.order_by('?')
+            protein = protein.order_by('?')
+            veggie = veggie.order_by('?')
+            sauce = sauce.order_by('?')
             data['bowl'] = [base[0], protein[0], veggie[0], sauce[0]]
-        except: 
-            # add error handling
-            pass
             
     return render(request, 'base.html', data)
