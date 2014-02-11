@@ -1,5 +1,6 @@
 $(function() {
   // TODO: make it DRYer.
+  // TODO: learn JS
   $('#use').on('click', function(event) {
         event.preventDefault(); 
         

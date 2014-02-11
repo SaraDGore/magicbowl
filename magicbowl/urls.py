@@ -4,6 +4,6 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', include('bowls.urls')),
-    url(r'^bowls/admin/', include(admin.site.urls)),
+    url(r'^magicbowl/admin/', include(admin.site.urls)),
+    url(r'^magicbowl/$', include('bowls.urls')),
 )
