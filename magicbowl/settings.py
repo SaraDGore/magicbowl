@@ -127,7 +127,6 @@ if not DEBUG:
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    print 'I think it worked?'
     
 AWS_PRELOAD_METADATA = True
 STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
