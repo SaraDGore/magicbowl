@@ -16,19 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-try: 
-    SECRET_KEY = os.environ['SECRET_KEY']
-except:
-    print "Could not import SECRET KEY"
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-try: 
-    from local_settings import *
-except Exception as e:
-    print "Could not import local settings."
 
 TEMPLATE_DEBUG = False
 
@@ -45,6 +33,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'south',
+    'storages',
+    'boto',
     'bowls',
 )
 
@@ -115,3 +105,24 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
 
+# SECURITY WARNING: keep the secret key used in production secret!
+try: 
+    SECRET_KEY = os.environ['SECRET_KEY']
+except:
+    print "Could not import SECRET KEY"
+
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = False
+
+try: 
+    from local_settings import *
+except Exception as e:
+    print "Could not import local settings."
+
+if not DEBUG:
+ AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+ STATIC_URL = S3_URL
