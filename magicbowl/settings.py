@@ -110,14 +110,6 @@ try:
 except Exception as e:
     print "Could not import local settings."
 
-if not DEBUG:
- AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
- AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
- AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
- STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
- S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
- STATIC_URL = S3_URL
-
 
 # Static asset configuration
 import os
@@ -129,3 +121,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static),
 )
 
+if not DEBUG:
+ AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+ AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+ AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+ S3_URL = 'http://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+ STATIC_URL = S3_URL

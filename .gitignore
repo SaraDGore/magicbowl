@@ -54,4 +54,5 @@ docs/_build/
 venv
 *.pyc
 staticfiles
+staticfiles/
 local_settings.py
