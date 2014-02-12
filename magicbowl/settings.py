@@ -18,9 +18,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 try: 
-    SECRET_KEY = os.environ['SECRET']
+    SECRET_KEY = os.environ['SECRET_KEY']
 except:
-    pass
+    print "Could not import SECRET KEY"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -28,7 +28,7 @@ DEBUG = False
 try: 
     from local_settings import *
 except Exception as e:
-    pass
+    print "Could not import local settings."
 
 TEMPLATE_DEBUG = False
 
