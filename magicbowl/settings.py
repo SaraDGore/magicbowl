@@ -102,7 +102,7 @@ STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_PATH, 'static'),
+    os.path.join(PROJECT_PATH, 'staticfiles'),
 )
 
 # SECURITY WARNING: keep the secret key used in production secret!
