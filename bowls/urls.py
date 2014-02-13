@@ -4,5 +4,5 @@ from bowls import views
 
 
 urlpatterns = patterns('',
-    url(r'^$', views.main, name='mains'), 
+    url(r'^$', views.main, name='main'), 
 )

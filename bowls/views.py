@@ -7,6 +7,12 @@ from bowls.models import Recipe_Ingredient
 from bowls.models import Recipe
 
 
+'''Until I get a real landing page for this site.'''
+def index(request): 
+    data = {}
+    return render(request, 'index.html', data)    
+
+
 def main(request):
     
     ingredients = Ingredient.objects.filter(listable=True).order_by('name')
@@ -55,4 +61,4 @@ def main(request):
         except:
             pass   
                         
-    return render(request, 'base.html', data)
+    return render(request, 'bowl.html', data)

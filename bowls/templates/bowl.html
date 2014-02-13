@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+{% block title %}Magic Bowl{% endblock %}
+
+{% block content %}
+
+       <div class="modal fade bs-modal-lg" id="recipe" tabindex="-1" role="dialog" aria-labelledby="{{ recipe.name }}" aria-hidden="true">
+      <div class="modal-dialog bs-modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">
+                {% comment %}move this processing to view{% endcomment %}
+                {% if bowl %}
+                    {% for recipe in bowl %}
+                          {{ recipe.name }}{% if forloop.counter == 3 %}, and
+                          {% elif forloop.counter == 1 or forloop.counter == 2 %},
+                          {% endif %}
+                    {% endfor %}
+                {% else %}
+                    Nothing here!
+                {% endif %}
+            </h4>
+          </div>
+          <div class="modal-body">
+            {% if bowl %}
+                {% for recipe in bowl %}
+                    <h5>{{ recipe.name }}</h5>
+                    <ul>
+                        {% for ingredient in recipe.recipe_ingredient_set.all %}
+                            <li>{{ ingredient }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p>{{ recipe.preparation }}</p>
+                    {% if recipe.source %}
+                        <p class="small">Source: {{ recipe.source }}</p>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p>No recipes could be found with these criteria. If you want a random bowl, click "Surprise Me!".</p>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <p class="small">Printable version coming soon.</p>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <!--<button type="button" class="btn btn-primary">Print</button>-->
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+                    
+    <div class="jumbotron">
+          <div class="container">
+            <h1 class="text-center">Magic Bowl</h1>
+            <h1 class="text-center"><span class="glyphicon glyphicon-cutlery"></span></h1>
+            <p class="text-center">Randomly generated easy dinners.</p>
+          </div>
+    </div><!--jumbotron-->
+
+    <div class="container">
+        <form role="form" action="." method="post">
+         {% csrf_token %} 
+        <div class="row">
+          <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="use">Clearing the Pantry</h2></div>
+          <div class="col-md-4 text-center"><h2 class="btn btn-primary btn-lg" id="dontuse">Goin' Shopping<h2></div>
+          <div class="col-md-4 text-center"><input type="submit" name="surprise" value="Surprise Me!" class="btn btn-primary btn-lg" id="random"></div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div id="use-label" class="hidden"><h2><label for="use">What I have on hand:</label></h2></div>
+                <div id="dontuse-label" class="hidden"><h2><label for="dontuse">Please do not include:</label></h2></div>
+            </div>
+            <div id="ingredient-list" class="hidden">
+                <div class="row">
+                {% for ingredient in ingredients %}
+                    <div class="col-xs-4">
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="use" value="{{ ingredient.name }}">{{ ingredient.name }}</label>
+                        </div>
+                    </div>
+                {% if not forloop.last %}
+                  {% if forloop.counter|divisibleby:3 %}
+                </div><!--row -->
+                <div class="row">
+                  {% endif %}
+                {% endif %}
+                {% endfor %}
+                </div><!--row -->
+            </div><!-- ingredient-list -->
+        </div><!--form group-->
+        <div class="form-group hidden" id="cuisine-form">
+            <div class="row">
+                <div><h2>I'm in the mood for:</h2></div>
+            </div>
+            <div class="row">
+                {% for cuisine in cuisines %}
+                    <div class="col-xs-4">
+                        <div class="radio">
+                            <label><input type="radio" name="cuisine" id="dont-{{ cuisine.name }}" value="{{ cuisine.name }}">{{ cuisine.get_name_display }}</label>
+                        </div>
+                    </div>
+                {% if not forloop.last %}
+                  {% if forloop.counter|divisibleby:3 %}
+                </div><!--row -->
+                <div class="row">
+                  {% endif %}
+                {% endif %}
+                {% endfor %}
+            </div><!--row -->
+        </div><!--formclass-->
+        <div class="row">
+         <!--data-toggle="modal" data-target="#recipe"-->
+            <p class="text-center hidden" id="submitbutton"><input type="submit" class="btn btn-primary btn-lg" value="Pack me a bowl!"></p>
+        </div>
+        </form>
+      <hr>
+
+      <footer>
+        <p>&copy; Difficult Panthers 2014</p>
+        <p>Amelia Theme by <a href="http://bootswatch.com/">Thomas Park</a></p>
+      </footer>
+  
+    </div> <!-- /container -->        
+    
+ {% endblock %}
